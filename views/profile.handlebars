@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="/css/profileStyle.css">
+</head>
+<body style="background-image: url('{{user.background_url}}');">
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="profile-avatar">
+                    {{#if user.avatar_url}}
+                    <img src="{{user.avatar_url}}" alt="Avatar for {{user.username}}" class="avatar-image">
+                    {{else}}
+                    <img src="/avatar/{{user.username}}" alt="Avatar for {{user.username}}" class="avatar-image">
+                    {{/if}}
+                </div>
+                <h1>Connected With Us</h1>
+            </div>
+    </header>
+    <section class="profile-section">
+        <div class="profile-info">
+            <p>Welcome, {{user.username}}!</p>
+            <p>Member since: {{user.memberSince}}</p>
+            <form action="/logout">
+                <button type="submit">Logout</button>
+            </form>
+            <a href="/edit-profile" class="edit-avatar-button">Edit Avatar</a>
+        </div>
+    </section>
+    <section class="user-posts">
+        <h2>Your Posts</h2>
+        {{#if userPosts.length}}
+        <ul>
+            {{#each userPosts}}
+            <li>
+                <h3>{{this.title}}</h3>
+                <p>{{this.content}}</p>
+                <hr>
+                <p class="post-meta">Posted by: {{this.username}} on {{this.timestamp}}</p>
+                <p class="post-meta">Likes: {{this.likes}}</p>
+            </li>
+            {{/each}}
+        </ul>
+        {{else}}
+        <p>You have not posted yet, {{user.username}}.</p>
+        {{/if}}
+    </section>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Username</title>
+    <link rel="stylesheet" href="/css/registerUsernameStyle.css">
+</head>
+<body>
+    <h1>Register Username</h1>
+    {{#if error}}
+        <p style="color: red;">{{error}}</p>
+    {{/if}}
+    <form action="/registerUsername" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>

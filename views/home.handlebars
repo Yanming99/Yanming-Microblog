@@ -1,0 +1,114 @@
+<!-- home.handlebars -->
+{{! Use the main layout }}
+{{!< main }}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/css/homeStyle.css">
+
+{{! New Post Submission Form and Recent Posts }}
+<section class="content-container">
+    {{#if loggedIn}}
+        <!-- Left Side: Create a new post -->
+        <section class="post-form">
+            <h2>Create a new post</h2>
+            <form action="/posts" method="POST">
+                <label for="post-title">Title:</label>
+                <input type="text" id="post-title" name="title" class="input-box" placeholder="Enter the title of your post..." required>
+
+                <label for="post-content">Content:</label>
+                <textarea id="post-content" name="content" class="input-box" placeholder="Enter the content of your post..." required></textarea>
+
+                <div class="form-actions">
+                    <input type="text" id="emoji-search" class="input-box" placeholder="Search emojis..." oninput="displayEmojis(allEmojis)">
+                    <button type="button" class="emoji-button" onclick="toggleEmojiPanel()">😀</button>
+                    <button type="submit" class="post-button">Post</button>
+                </div>
+            </form>
+
+            <div id="emoji-container" class="emoji-panel" style="display: none;">
+                <div id="emoji-grid"></div>
+            </div>
+        </section>
+
+        <!-- Right Side: Recent Posts -->
+        <section class="posts-list">
+            <h2>Recent Posts</h2>
+            <div class="sorting-options">
+                <label for="sortPosts">Sort by:</label>
+                <select id="sortPosts">
+                    <option value="recency">Recency</option>
+                    <option value="likes">Number of Likes</option>
+                </select>
+            </div>
+            <div id="posts-container">
+                {{#if posts.length}}
+                    <ul>
+                        {{#each posts}}
+                            <!-- Render individual post using the post.handlebars partial -->
+                            {{> post this}}
+                        {{/each}}
+                    </ul>
+                {{else}}
+                    <p>No posts yet.</p>
+                {{/if}}
+            </div>
+        </section>
+    {{else}}
+        <!-- Show something if not logged in -->
+        <p>Please log in to create a new post.</p>
+    {{/if}}
+</section>
+
+{{! JavaScript for Emoji Integration and Sorting }}
+<script src="/js/sorting.js"></script>
+<script>
+    let allEmojis = [];
+
+    function toggleEmojiPanel() {
+        const container = document.getElementById('emoji-container');
+        container.style.display = container.style.display === 'none' ? 'block' : 'none';
+
+        if (container.style.display === 'block' && allEmojis.length === 0) {
+            fetchEmojis();
+        }
+    }
+
+    async function fetchEmojis() {
+        try {
+            const response = await fetch('/fetch-emojis');
+            const emojis = await response.json();
+            allEmojis = emojis;
+            displayEmojis(emojis);
+        } catch (error) {
+            console.error('Error fetching emojis:', error);
+        }
+    }
+
+    function displayEmojis(emojis, limit = 200) {
+        const container = document.getElementById('emoji-grid');
+        container.innerHTML = '';
+
+        const searchInput = document.getElementById('emoji-search').value.toLowerCase();
+        const filteredEmojis = emojis.filter(emoji => emoji.slug.toLowerCase().includes(searchInput));
+
+        if (Array.isArray(filteredEmojis) && filteredEmojis.length > 0) {
+            filteredEmojis.slice(0, limit).forEach(emoji => {
+                const emojiElement = document.createElement('span');
+                emojiElement.textContent = emoji.character;
+                emojiElement.title = emoji.slug;
+                emojiElement.style.cursor = 'pointer';
+                emojiElement.onclick = () => insertEmoji(emoji.character);
+                container.appendChild(emojiElement);
+            });
+        } else {
+            container.textContent = 'No matching emojis found.';
+        }
+    }
+
+    function insertEmoji(emoji) {
+        const textarea = document.getElementById('post-content');
+        const cursorPosition = textarea.selectionStart;
+        const textBeforeCursor = textarea.value.substring(0, cursorPosition);
+        const textAfterCursor = textarea.value.substring(cursorPosition);
+        textarea.value = textBeforeCursor + emoji + textAfterCursor;
+    }
+</script>

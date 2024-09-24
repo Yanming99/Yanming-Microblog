@@ -1,0 +1,131 @@
+/* public/css/homeStyle.css */
+.sorting-options {
+    margin-bottom: 20px;
+}
+
+.sorting-options select {
+    padding: 5px;
+    font-size: 16px;
+}
+
+/* Layout styles */
+.content-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.post-form {
+    width: 45%;
+}
+
+/* Styles for left part (Create a new post) */
+.post-form {
+    padding: 20px;
+    background-color: lavender;
+    border-radius: 8px;
+}
+
+.post-form h2 {
+    margin-top: 0;
+}
+
+.post-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.post-form label {
+    margin-bottom: 10px;
+}
+
+.post-form textarea {
+    height: 150px;
+    resize: none;
+    margin-bottom: 10px;
+}
+
+.post-form .form-actions {
+    display: flex;
+    align-items: center;
+}
+
+.post-form .emoji-button,
+.post-form .post-button {
+    margin-right: 10px;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.emoji-panel {
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.emoji-panel span {
+    font-size: 20px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+/* Styles for right part (Recent Posts) */
+.posts-list {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+}
+
+.posts-list h1 {
+    margin-top: 10px;
+}
+
+.post-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.input-box {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.emoji-search-results {
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 10px;
+}
+
+.emoji-search-results .emoji-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.emoji-search-results .emoji-item img {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.emoji-search-results .emoji-item .emoji-text {
+    font-size: 16px;
+}
+
+.avatar-image {
+    border-radius: 20px;
+    width: 30px;
+    height: 30px;
+}

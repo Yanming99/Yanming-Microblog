@@ -1,0 +1,144 @@
+/* postStyle.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+
+.content-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+
+.post-form {
+    background-color: lavender;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+
+.post-avatar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+
+.avatar-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+}
+
+
+.post-content {
+    text-align: center;
+}
+
+
+h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+
+p {
+    font-size: 16px;
+    line-height: 1.6;
+    white-space: pre-wrap; /* Preserves new lines */
+}
+
+
+hr {
+    margin: 20px 0;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
+
+.post-status-bar {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+}
+
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+
+button:hover {
+    background-color: #0056b3;
+}
+
+
+.like-button {
+    background-color: #28a745;
+}
+
+
+.like-button:hover {
+    background-color: #218838;
+}
+
+
+.delete-button {
+    background-color: #dc3545;
+}
+
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+
+button i {
+    margin-right: 8px;
+}
+
+
+@media (max-width: 600px) {
+    .post-form {
+        padding: 15px;
+    }
+
+
+    h3 {
+        font-size: 20px;
+    }
+
+
+    p {
+        font-size: 14px;
+    }
+
+
+    button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
+
+
+
+

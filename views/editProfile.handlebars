@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+
+
+    <link rel="stylesheet" href="/css/editProfile.css">
+</head>
+<body>
+    <div class="profile-container">
+        <h1>Edit Profile</h1>
+        <form action="/edit-profile" method="POST">
+            <label for="username">Change New Username:</label>
+            <input type="text" id="username" name="username" value="{{user.username}}" required>
+           
+            <label for="avatar_url">New Avatar URL:</label>
+            <input type="text" id="avatar_url" name="avatar_url" value="{{user.avatar_url}}">
+
+
+            <a href="https://vinicius73.github.io/gravatar-url-generator/#/robohash" class="searching-url" target="_blank">Search Avatar URL</a>
+           
+            <button type="submit">Save Changes</button>
+        </form>
+        <a href="/profile">Cancel</a>
+    </div>
+</body>
+</html>

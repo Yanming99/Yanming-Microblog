@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Success</title>
+    <link rel="stylesheet" href="/css/uploadSuccess.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Upload Successful</h1>
+        <p class="message">Your file has been uploaded successfully.</p>
+        <button onclick="openFile()">View File</button>
+        <div class="file-preview">
+            <p>File preview:</p>
+            <img src="{{filePath}}" alt="Uploaded File" class="uploaded-file">
+        </div>
+        <button onclick="setAsBackground('{{filePath}}')">Set as Profile Background</button>
+    </div>
+    <script>
+        function openFile() {
+            const filePath = '{{filePath}}';
+            window.open(filePath, '_blank');
+        }
+
+        async function setAsBackground(filePath) {
+            const response = await fetch('/setBackground', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ filePath: filePath })
+            });
+
+            if (response.ok) {
+                alert('Profile background updated successfully!');
+                window.location.href = '/profile';
+            } else {
+                alert('Failed to update profile background.');
+            }
+        }
+    </script>
+</body>
+</html>

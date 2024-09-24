@@ -1,0 +1,82 @@
+{{!-- Partial for a single post --}}
+<link rel="stylesheet" href="/css/postStyle.css">
+<div class="content-container">
+    <div class="post-form">
+        <div class="post-avatar">
+            <img src="/avatar/{{username}}" alt="Avatar for {{username}}" class="avatar-image">
+        </div>
+        <div class="post-content preserve-newlines">
+            <h3>{{ title }}</h3>
+            <p>{{ content }}</p>
+            {{#if filePath}}
+            <hr>
+            <div>
+                <h3>Uploaded File:</h3>
+                <a href="{{filePath}}" target="_blank">View File</a>
+            </div>
+            {{/if}}
+            <hr>
+            <div class="post-status-bar">
+                <!-- Render like button -->
+                <button class="like-button" onclick="handleLikeClick(event)" data-id="{{ id }}">
+                    <i class="far fa-heart"></i> Like
+                </button>
+                <span class="like-count">{{ likeCount }}</span>
+                <!-- Render delete button -->
+                <button class="delete-button" onclick="handleDeleteClick(event)" data-id="{{ id }}">
+                    <i class="fas fa-trash-alt"></i> Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function handleLikeClick(event) {
+        const postId = event.target.closest('button').getAttribute('data-id');
+
+        // Make a POST request to the server to update the likes count for this post
+        fetch(`/like/${postId}`, {
+            method: 'POST',
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to like post');
+            }
+            // If the request is successful, update the UI to reflect the new like count
+            const likeButton = event.target.closest('button');
+            const likeCountElement = likeButton.nextElementSibling;
+            if (likeCountElement && likeCountElement.classList.contains('like-count')) {
+                const currentCount = parseInt(likeCountElement.textContent);
+                if (!isNaN(currentCount)) {
+                    likeCountElement.textContent = currentCount + 1;
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error liking post:', error);
+            // Handle error
+        });
+    }
+
+    function handleDeleteClick(event) {
+        const postId = event.target.closest('button').getAttribute('data-id');
+
+        // Make a POST request to the server to delete the post
+        fetch(`/delete/${postId}`, {
+            method: 'POST',
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to delete post');
+            }
+            // If the request is successful, remove the post from the UI
+            const postContainer = event.target.closest('.content-container');
+            postContainer.remove();
+        })
+        .catch(error => {
+            console.error('Error deleting post:', error);
+            // Handle error
+        });
+    }
+</script>
